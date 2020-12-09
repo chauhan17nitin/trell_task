@@ -1,0 +1,62 @@
+{% extends "theatre/base.html" %}
+{% include "theatre/nav_bar.html" %}
+{% block content%}
+  {{ user }}
+  {% for movie in movies %}
+    <div class="card m-5">
+      <div class="card-header">
+        <h4>{{ movie.movie_name }}</h4>
+      </div>
+      <div class="card-body">
+
+        <h5 class="card-title">Directed by {{ movie.director }}</h5>
+        <p class="card-text">{{ movie.description }}</p>
+        <div class="float-right">{{ movie.duration }}</div>
+        <form action="/purchase/" method="GET">
+          <input type="text" value="{{ movie.id }}" name="movie_id" style="display: none;">
+          <button type="submit">purchase</button>
+        </form>
+        <!-- <a href="#" class="btn btn-primary">Add Timings</a> -->
+        <div id="{{movie.id}}">
+          <form action="/add_timings/" method="POST">
+            {% csrf_token %}
+            <input type="text" value="{{movie.id}}" name="movie" style="display: none;">
+            <input type="time" name="start_time">
+            <input type="time" name="end_time">
+            <input type="integer" name="number_tickets">
+            <button type="submit"> Add Timings</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  {%  endfor %}
+  <button id="myBtn">Add Movie</button>
+  <div id="add_movie" style="display: none;">
+    <form action="/add_movie/" method="post">
+      {% csrf_token %}
+      <label for="movie_name">Enter Movie name</label>
+      <input type="text" name="movie_name">
+      <label for="description">Description</label>
+      <input type="text" name="description">
+      <label for="director">Director</label>
+      <input type="text" name="director">
+      <label for="duration">Duration</label>
+      <input type="time" name="duration">
+      <button type="submit" min="01:00" max="4:00">Add Movie</button>
+    </form>
+  </div>
+  <script>
+    // var add_movie = document.getElementsByClassName("add_movie_button");
+    document.getElementById("myBtn").addEventListener("click", () => {
+      var display = document.getElementById("add_movie").style.display;
+      if (display == "none"){
+        document.getElementById("add_movie").style.display = "block";
+      } else{
+        document.getElementById("add_movie").style.display = "none";
+      }
+
+    document.get
+
+    })
+  </script>
+{% endblock %}

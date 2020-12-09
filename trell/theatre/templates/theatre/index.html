@@ -1,0 +1,32 @@
+{% extends "theatre/base.html" %}
+{% block content %}
+  {% if error %}
+    <div>{{ error }}</div>
+  {%  endif %}
+  {% if login %}
+  <div class="login-form">
+
+    <form class="text-center border border-light p-5" action="/login/" method="post">
+      {% csrf_token %}
+      <h4>Login to Your Account</h4>
+      <label for="username">Enter Username</label>
+      <input type="text" name="username" required placeholder="username"><br>
+      <label for="password">Enter Password</label>
+      <input type="password" name="password" required placeholder="password"><br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  {% endif %}
+  <br>
+  <div class="signup-form">
+    <form class="text-center border border-light p-5" action="/signup/" method="post">
+      {% csrf_token %}
+      <h4>Create New Account</h4>
+      <label for="username">Enter Username</label>
+      <input type="text" name="username"required placeholder="username"><br>
+      <label for="password">Enter Password</label>
+      <input type="password" name="password" required placeholder="password"><br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+{% endblock %}
